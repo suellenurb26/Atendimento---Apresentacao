@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuidados no Preenchimento de Planilhas</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    background-color: #f1f5f9;
+    display: grid;
+    gap: 60px;
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 60px 0;
+    place-items: center;
+}
+
+.slide-container {
+    background-color: #ffffff;
+    border-radius: 0;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    height: 720px;
+    overflow: hidden;
+    padding: 80px;
+    position: relative;
+    width: 1280px;
+}
+
+:root {
+    --navy: #002060;
+    --excel-green: #217346;
+    --light-bg: #f8fafc;
+    --error-red: #b91c1c;
+    --level-1: #16a34a;
+    --level-2: #2563eb;
+    --level-3: #eab308;
+    --level-4: #f97316;
+    --level-5: #dc2626;
+}
+
+h1 {
+    font-size: 82px;
+    color: var(--navy);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 52px;
+    color: var(--navy);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+h3 {
+    font-size: 32px;
+    color: var(--navy);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.slide-title {
+    border-left: 12px solid var(--excel-green);
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    padding-left: 30px;
+    text-align: left;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+p, li {
+    font-size: 28px;
+    line-height: 1.5;
+    color: #1e293b;
+}
+
+.content-area {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.title-layout {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.title-layout .subtitle {
+    font-size: 36px;
+    color: var(--excel-green);
+    margin-top: 10px;
+}
+
+.tiled-content {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+
+.tile {
+    background-color: var(--light-bg);
+    border-top: 8px solid var(--excel-green);
+    flex: 1;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.tile .icon {
+    color: var(--excel-green);
+    font-size: 64px;
+    margin-bottom: 25px;
+}
+
+.tile p {
+    font-size: 24px;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    width: 100%;
+    align-items: center;
+}
+
+.image-wrapper {
+    background: #e2e8f0;
+    border: 2px solid #cbd5e1;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.bullet-list ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.bullet-list li {
+    margin-bottom: 35px;
+    padding-left: 70px;
+    position: relative;
+    font-size: 32px;
+}
+
+.bullet-list i {
+    color: var(--excel-green);
+    font-size: 36px;
+    left: 0;
+    position: absolute;
+    top: 8px;
+}
+
+.forbidden-layout {
+    background-color: var(--error-red);
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
+
+.forbidden-layout h2,
+.forbidden-layout p {
+    color: white !important;
+}
+
+.forbidden-layout hr {
+    border: none;
+    height: 6px;
+    background: white;
+    width: 150px;
+    margin: 40px auto;
+}
+
+.bg-shape {
+    background-color: var(--excel-green);
+    bottom: -50px;
+    height: 250px;
+    opacity: 0.07;
+    position: absolute;
+    right: -50px;
+    transform: rotate(-15deg);
+    width: 500px;
+    z-index: 0;
+}
+
+/* Slides de imagens */
+.image-slide .slide-title {
+    margin-bottom: 24px;
+}
+
+.image-slide .content-area {
+    justify-content: flex-start;
+}
+
+.image-slide-caption {
+    margin-top: 20px;
+    text-align: center;
+    max-width: 980px;
+}
+
+.image-slide-caption p {
+    font-size: 26px;
+    line-height: 1.35;
+    color: #334155;
+    margin: 0;
+}
+
+/* SLIDE 8 SUPER COMPACTO */
+.levels-slide .slide-title {
+    margin-bottom: 14px;
+}
+
+.level-intro {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.level-intro p {
+    font-size: 17px;
+    line-height: 1.3;
+    color: #334155;
+    margin: 0;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    width: 100%;
+}
+
+.level-card {
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #ffffff;
+    border-left: 8px solid #cbd5e1;
+    box-shadow: 0 4px 10px rgba(15,23,42,0.06);
+    min-height: 110px;
+}
+
+.level-card h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.level-card p {
+    font-size: 15px;
+    line-height: 1.25;
+    margin: 2px 0;
+}
+
+.level-card strong {
+    color: #0f172a;
+}
+
+.level-1 { border-left-color: var(--level-1); background: #f0fdf4; }
+.level-2 { border-left-color: var(--level-2); background: #eff6ff; }
+.level-3 { border-left-color: var(--level-3); background: #fefce8; }
+.level-4 { border-left-color: var(--level-4); background: #fff7ed; }
+
+.level-critical {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 12px;
+    padding: 12px 16px;
+    border-left: 8px solid var(--level-5);
+    background: #fef2f2;
+    box-shadow: 0 4px 10px rgba(15,23,42,0.06);
+}
+
+.level-critical h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.level-critical p {
+    font-size: 15px;
+    line-height: 1.25;
+    margin: 2px 0;
+}
+
+.level-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    flex: 0 0 12px;
+}
+
+.dot-1 { background: var(--level-1); }
+.dot-2 { background: var(--level-2); }
+.dot-3 { background: var(--level-3); }
+.dot-4 { background: var(--level-4); }
+.dot-5 { background: var(--level-5); }
+</style>
+</head>
+
+<body>
+
+<!-- Slide 1 -->
+<div class="slide-container" id="slide1">
+    <div class="bg-shape"></div>
+    <div class="title-layout">
+        <p style="font-weight:700;color:var(--excel-green);margin-bottom:10px;letter-spacing:2px;">
+            BOAS PRÁTICAS
+        </p>
+        <h1>
+            Planilha Blindada:<br>Guia de Preenchimento
+        </h1>
+        <div style="height:6px;width:200px;background:var(--excel-green);margin:40px 0;"></div>
+        <p class="subtitle">Garanta a integridade e precisão dos seus dados.</p>
+    </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">Erros Comuns de Digitação</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-font"></i></div>
+                <h3>Texto em Números</h3>
+                <p>Escrever "R$ 50" ou "reais" impede que a planilha realize cálculos automáticos.</p>
+            </div>
+
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-calendar-day"></i></div>
+                <h3>Formato de Data</h3>
+                <p>Usar nomes de meses ou formatos manuais que o sistema não reconhece como tempo.</p>
+            </div>
+
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-hand-pointer"></i></div>
+                <h3>Menu Suspenso</h3>
+                <p>Tentar digitar algo fora das opções permitidas na lista de seleção.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Exemplos: O que evitar</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p style="font-size:34px;"><strong>Erro de Valor:</strong></p>
+                <p>Quando você digita texto onde deveria haver um número, o sistema retorna <strong>#VALOR!</strong>.</p>
+                <p style="margin-top:30px;font-size:24px;color:#64748b;">Abaixo, o erro visualizado no sistema:</p>
+            </div>
+            <div class="image-wrapper">
+                <img src="errovalue.png" alt="Erro de valor na planilha">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-container image-slide" id="slide4">
+    <h2 class="slide-title">Erros de Preenchimento</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="image-wrapper">
+                <img src="erro3.png" alt="Exemplo de erro de preenchimento 3">
+            </div>
+            <div class="image-wrapper">
+                <img src="erro4.png" alt="Exemplo de erro de preenchimento 4">
+            </div>
+        </div>
+        <div class="image-slide-caption">
+            <p>Veja exemplos de preenchimento incorreto que podem comprometer fórmulas, filtros e a leitura correta dos dados.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-container image-slide" id="slide5">
+    <h2 class="slide-title">Mais Exemplos de Erros</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="image-wrapper">
+                <img src="erro5.png" alt="Exemplo de erro de preenchimento 5">
+            </div>
+            <div class="image-wrapper">
+                <img src="erro6.png" alt="Exemplo de erro de preenchimento 6">
+            </div>
+        </div>
+        <div class="image-slide-caption">
+            <p>Esses erros podem causar cálculos incorretos, falhas em relatórios e inconsistências em planilhas automatizadas.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Ameaças às Fórmulas</h2>
+    <div class="content-area">
+        <div class="bullet-list">
+            <ul>
+                <li><i class="fa-solid fa-eraser"></i> <strong>Apertar Delete:</strong> Apagar campos que calculam dados automaticamente.</li>
+                <li><i class="fa-solid fa-paste"></i> <strong>Copiar e Colar:</strong> Substituir fórmulas por valores fixos por acidente.</li>
+                <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>Falta de Revisão:</strong> Não conferir se o ponto ou vírgula estão corretos.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Fórmulas vs. Valores</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="image-wrapper">
+                <img src="errodevalor.jpeg" alt="Erro ao colar valores e fórmulas">
+            </div>
+            <div>
+                <p><strong>Cuidado ao colar dados!</strong></p>
+                <p>Sempre prefira a opção <strong>"Colar Valores"</strong> para não destruir a formatação e as fórmulas da sua planilha de destino.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-container levels-slide" id="slide8">
+    <h2 class="slide-title">Guia de Níveis de Atendimento</h2>
+    <div class="content-area">
+        <div class="level-intro">
+            <p>
+                Use este guia para classificar corretamente o nível de atendimento na planilha,
+                de acordo com a complexidade, risco e tempo médio de resolução.
+            </p>
+        </div>
+
+        <div class="levels-grid">
+            <div class="level-card level-1">
+                <h3><span class="level-dot dot-1"></span>Nível 1 – Muito Simples</h3>
+                <p><strong>Características:</strong> dúvidas básicas, resposta rápida, sem análise, resolvido no primeiro contato.</p>
+                <p><strong>Tempo médio:</strong> 5 a 10 minutos.</p>
+                <p><strong>Exemplo:</strong> informar horário de funcionamento, segunda via de boleto.</p>
+            </div>
+
+            <div class="level-card level-2">
+                <h3><span class="level-dot dot-2"></span>Nível 2 – Simples</h3>
+                <p><strong>Características:</strong> pequena verificação no sistema, processo padrão, baixo risco.</p>
+                <p><strong>Tempo médio:</strong> 10 a 20 minutos.</p>
+                <p><strong>Exemplo:</strong> atualização de cadastro, consulta de pedido.</p>
+            </div>
+
+            <div class="level-card level-3">
+                <h3><span class="level-dot dot-3"></span>Nível 3 – Moderado</h3>
+                <p><strong>Características:</strong> exige análise mais detalhada, pode envolver outro setor, pode precisar retorno ao cliente.</p>
+                <p><strong>Tempo médio:</strong> 20 a 40 minutos.</p>
+                <p><strong>Exemplo:</strong> reclamação com verificação interna.</p>
+            </div>
+
+            <div class="level-card level-4">
+                <h3><span class="level-dot dot-4"></span>Nível 4 – Difícil</h3>
+                <p><strong>Características:</strong> situação sensível ou crítica, envolve supervisão, pode impactar financeiro ou imagem.</p>
+                <p><strong>Tempo médio:</strong> 40 a 90 minutos.</p>
+                <p><strong>Exemplo:</strong> cliente muito insatisfeito, erro financeiro.</p>
+            </div>
+        </div>
+
+        <div class="level-critical">
+            <h3><span class="level-dot dot-5"></span>Nível 5 – Crítico / Complexo</h3>
+            <p><strong>Características:</strong> alto impacto, pode envolver jurídico ou diretoria, risco alto para a empresa, necessita decisão estratégica.</p>
+            <p><strong>Tempo:</strong> variável.</p>
+            <p><strong>Exemplo:</strong> processo judicial, falha grave no sistema, grande prejuízo.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-container forbidden-layout" id="slide9">
+    <div class="content-area" style="justify-content:center;">
+        <i class="fa-solid fa-ban" style="font-size:100px;margin-bottom:30px;"></i>
+        <h2 style="font-size:70px;">PROIBIDO FAZER:</h2>
+        <hr>
+        <div style="max-width:950px;text-align:center;">
+            <p style="font-size:38px;margin-bottom:20px;">• Alterar colunas em planilhas automatizadas.</p>
+            <p style="font-size:38px;margin-bottom:20px;">• Digitar sobre resultados de cálculos.</p>
+            <p style="font-size:38px;">• Ignorar células com erros de referência (#REF!).</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
